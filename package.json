@@ -1,0 +1,18 @@
+{
+  "name": "quidjs",
+  "version": "0.1.0",
+  "description": "Requests library for the Quid json web tokens server",
+  "main": "requests.js",
+  "keywords": [
+    "quid",
+    "jwt",
+    "requests",
+    "auth"
+  ],
+  "author": "synw",
+  "license": "MIT",
+  "homepage": "https://github.com/synw/quidjs",
+  "dependencies": {
+    "axios": "^0.19.2"
+  }
+}
