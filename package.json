@@ -1,6 +1,6 @@
 {
   "name": "quidjs",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Requests library for the Quid json web tokens server",
   "main": "lib/requests.js",
   "scripts": {
@@ -8,7 +8,11 @@
   },
   "babel": {
     "presets": [
-      "es2015"
+      "@babel/env"
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-private-property-in-object",
+      "@babel/plugin-proposal-class-properties"
     ]
   },
   "keywords": [
@@ -22,5 +26,12 @@
   "homepage": "https://github.com/synw/quidjs",
   "dependencies": {
     "axios": "^0.19.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.11.6",
+    "@babel/core": "^7.11.6",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/plugin-proposal-private-property-in-object": "^7.10.4",
+    "@babel/preset-env": "^7.11.5"
   }
 }
