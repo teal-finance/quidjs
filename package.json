@@ -1,8 +1,16 @@
 {
   "name": "quidjs",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Requests library for the Quid json web tokens server",
-  "main": "src/requests.js",
+  "main": "lib/requests.js",
+  "scripts": {
+    "prepublish": "babel src --out-dir lib"
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  },
   "keywords": [
     "quid",
     "jwt",
