@@ -1,47 +1,58 @@
-import axios from 'axios'
-import quidException from "./exceptions"
+import axios from 'axios';
+import quidException from "./exceptions";
 
 export default class QuidRequests {
   refreshToken = null;
   #accessToken = null;
 
-  constructor({ namespace, axiosConfig, timeouts = {
+  constructor({ quidUri, namespace, axiosConfig, timeouts = {
     accessToken: "20m",
     refreshToken: "24h"
   },
     accessTokenUri = null,
     verbose = false }) {
+    if (typeof quidUri !== 'string') {
+      throw quidException({ error: 'Parameter quidUri has to be set' });
+    }
     if (typeof namespace !== 'string') {
       throw quidException({ error: 'Parameter namespace has to be set' });
     }
     if (typeof axiosConfig !== 'object') {
       throw quidException({ error: 'Parameter axiosConfig has to be set' });
     }
-    this.namespace = namespace
+    this.quidUri = quidUri;
+    this.namespace = namespace;
     this.axiosConfig = axiosConfig;
     this.axios = axios.create(this.axiosConfig);
-    this.timeouts = timeouts
-    this.verbose = verbose
-    this.accessTokenUri = accessTokenUri
+    this.axiosQuid = axios.create(
+      {
+        baseURL: quidUri,
+        timeout: 5000,
+        headers: { 'Content-Type': 'application/json' }
+      }
+    );
+    this.timeouts = timeouts;
+    this.verbose = verbose;
+    this.accessTokenUri = accessTokenUri;
   }
 
   async get(uri) {
-    return await this._requestWithRetry(uri, "get")
+    return await this._requestWithRetry(uri, "get");
   }
 
   async post(uri, payload) {
-    return await this._requestWithRetry(uri, "post", payload)
+    return await this._requestWithRetry(uri, "post", payload);
   }
 
-  async adminLogin(username, password) {
-    let uri = "/admin_login";
+  async getRefreshToken({ namespace, username, password, refreshTokenTtl = "24h" }) {
+    let uri = "/token/refresh/" + refreshTokenTtl;
     let payload = {
-      namespace: "quid",
+      namespace: namespace,
       username: username,
       password: password,
     }
     try {
-      let response = await axios.post(uri, payload, this.axiosConfig);
+      let response = await this.axiosQuid.post(uri, payload);
       this.refreshToken = response.data.token;
     } catch (e) {
       if (e.response) {
@@ -60,9 +71,11 @@ export default class QuidRequests {
     await this.checkTokens();
     try {
       if (method === "get") {
-        return await this.axios.get(uri, this.axiosConfig);
+        console.log("GET", this.#accessToken, uri);
+        return await this.axios.get(uri);
       } else {
-        return await axios.post(uri, payload, this.axiosConfig);
+        //console.log("POST REQ", uri, payload)
+        return await axios.post(uri, payload);
       }
     } catch (e) {
       if (e.response) {
@@ -130,7 +143,7 @@ export default class QuidRequests {
       if (this.verbose) {
         console.log("Getting an access token from", url, payload)
       }
-      let response = await axios.post(url, payload, this.axiosConfig);
+      let response = await this.axiosQuid.post(url, payload);
       return { token: response.data.token, error: null, statusCode: response.status };
     } catch (e) {
       if (e.response !== undefined) {
