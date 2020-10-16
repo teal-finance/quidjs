@@ -1,6 +1,6 @@
 {
   "name": "quidjs",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Requests library for the Quid json web tokens server",
   "main": "lib/requests.js",
   "scripts": {
@@ -12,7 +12,9 @@
     ],
     "plugins": [
       "@babel/plugin-proposal-private-property-in-object",
-      "@babel/plugin-proposal-class-properties"
+      "@babel/plugin-proposal-class-properties",
+      "@babel/plugin-transform-destructuring",
+      "@babel/plugin-transform-parameters"
     ]
   },
   "keywords": [
@@ -28,6 +30,8 @@
     "axios": "^0.19.2"
   },
   "devDependencies": {
+    "@babel/plugin-transform-destructuring": "^7.10.4",
+    "@babel/plugin-transform-parameters": "^7.10.5",
     "@babel/cli": "^7.11.6",
     "@babel/core": "^7.11.6",
     "@babel/plugin-proposal-class-properties": "^7.10.4",
