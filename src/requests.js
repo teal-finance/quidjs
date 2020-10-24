@@ -71,7 +71,7 @@ export default class QuidRequests {
     await this.checkTokens();
     try {
       if (method === "get") {
-        console.log("GET", this.#accessToken, uri);
+        //console.log("GET", this.#accessToken, uri);
         return await this.axios.get(uri);
       } else {
         //console.log("POST REQ", uri, payload)
