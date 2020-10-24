@@ -7,7 +7,7 @@ when an access token is expired the client library will request a new access tok
 token, and will retry the request with the new access token
 
 ```bash
-npm install quidjs@0.2.0
+npm install quidjs@0.3.0
 ```
 
 ## Usage
@@ -22,7 +22,7 @@ var requests = new QuidRequests({
     refreshToken: "24h"
   },
   axiosConfig: {
-    baseURL: "https://myquideserver_uri_", // "http://localhost:8080"
+    baseURL: "https://myserver_uri_",
     timeout: 5000
   },
 })
