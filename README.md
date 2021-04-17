@@ -1,5 +1,7 @@
 # Quidjs
 
+[![pub package](https://img.shields.io/npm/v/quidjs)](https://www.npmjs.com/package/quidjs)
+
 A requests library for the [Quid](https://github.com/synw/quid) json web tokens server
 
 This library transparently manage the requests to api servers. If a server returns a 401 Unauthorized response
