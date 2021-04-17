@@ -1,22 +1,13 @@
 {
   "name": "quidjs",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Requests library for the Quid json web tokens server",
-  "main": "lib/requests.js",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
-    "prepublish": "babel src --out-dir lib"
+    "build": "tsc"
   },
-  "babel": {
-    "presets": [
-      "@babel/env"
-    ],
-    "plugins": [
-      "@babel/plugin-proposal-private-property-in-object",
-      "@babel/plugin-proposal-class-properties",
-      "@babel/plugin-transform-destructuring",
-      "@babel/plugin-transform-parameters"
-    ]
-  },
+  "prepublish": "tsc",
   "keywords": [
     "quid",
     "jwt",
@@ -26,16 +17,12 @@
   "author": "synw",
   "license": "MIT",
   "homepage": "https://github.com/synw/quidjs",
-  "dependencies": {
-    "axios": "^0.19.2"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/synw/quidjs"
   },
   "devDependencies": {
-    "@babel/plugin-transform-destructuring": "^7.10.4",
-    "@babel/plugin-transform-parameters": "^7.10.5",
-    "@babel/cli": "^7.11.6",
-    "@babel/core": "^7.11.6",
-    "@babel/plugin-proposal-class-properties": "^7.10.4",
-    "@babel/plugin-proposal-private-property-in-object": "^7.10.4",
-    "@babel/preset-env": "^7.11.5"
+    "tslib": "^2.1.0",
+    "typescript": "^4.2.3"
   }
 }
