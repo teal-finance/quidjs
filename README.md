@@ -15,7 +15,7 @@ npm install quidjs
 ## Usage
 
 ```javascript
-import QuidRequests from "quidjs";
+import { QuidRequests } from "quidjs";
 
 var requests = new QuidRequests({
   namespace: "my_namespace",

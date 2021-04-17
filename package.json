@@ -1,6 +1,6 @@
 {
   "name": "quidjs",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "Requests library for the Quid json web tokens server",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
