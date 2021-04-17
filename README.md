@@ -7,7 +7,7 @@ when an access token is expired the client library will request a new access tok
 token, and will retry the request with the new access token
 
 ```bash
-npm install quidjs@0.3.0
+npm install quidjs
 ```
 
 ## Usage
