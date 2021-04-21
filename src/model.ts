@@ -39,6 +39,11 @@ export default class QuidRequests {
     return this._request<T>(url, "post");
   }
 
+  async login(username: string, password: string) {
+    await this.getRefreshToken({ username: username, password: password } as QuidLoginParams);
+    await this.checkTokens();
+  }
+
   async getRefreshToken({ username, password, refreshTokenTtl = "24h" }: QuidLoginParams) {
     const uri = this.quidUri + "/token/refresh/" + refreshTokenTtl;
     const payload = {
@@ -58,6 +63,9 @@ export default class QuidRequests {
         throw new Error(response.statusText)
       }
       const t = await response.json();
+      if (this.verbose) {
+        console.log("Setting refresh token")
+      }
       this.refreshToken = t.token;
     } catch (e) {
       throw new Error(e);
@@ -94,8 +102,7 @@ export default class QuidRequests {
     if (this.verbose) {
       console.log(method + " request to " + url)
     }
-    const status = await this.checkTokens();
-    console.log("STATUS", status, this.accessToken);
+    await this.checkTokens();
     let opts: RequestInit;
     if (method === "post") {
       //console.log("GET", this.#accessToken, uri);
@@ -120,6 +127,18 @@ export default class QuidRequests {
     //console.log(JSON.stringify(opts, null, "  "))
     const response = await fetch(this.serverUri + url, opts);
     if (!response.ok) {
+      if (response.status === 401) {
+        this.accessToken = null;
+        this.checkTokens();
+        retry++;
+        if (retry > 2) {
+          throw new Error("Too many retries")
+        }
+        if (this.verbose) {
+          console.log("Request retry", retry)
+        }
+        return this._request<T>(url, method, payload, retry);
+      }
       console.log("RESP NOT OK", response);
       throw new Error(response.statusText)
     }
