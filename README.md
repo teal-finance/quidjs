@@ -30,12 +30,12 @@ const requests = new QuidRequests({
   verbose: true,
 });
 
-async function get(uri: string): Record<string, any> {
+async function get(uri: string): Promise<Record<string, any>> {
   let data = await requests.get<Record<string,any>>(uri);
   return data
 }
 
-async function post(uri: string, payload: Record<string, any>): Record<string, any> {
+async function post(uri: string, payload: Record<string, any>): Promise<Record<string, any>> {
   let data = await requests.post<Record<string,any>>(uri, payload);
   return data
 }
