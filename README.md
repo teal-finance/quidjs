@@ -9,37 +9,36 @@ when an access token is expired the client library will request a new access tok
 token, and will retry the request with the new access token
 
 ```bash
+yarn add quidjs
+# or
 npm install quidjs
 ```
 
 ## Usage
 
-```javascript
+```typescript
 import { QuidRequests } from "quidjs";
 
-var requests = new QuidRequests({
+const requests = new QuidRequests({
   namespace: "my_namespace",
   timeouts: {
     accessToken: "5m",
     refreshToken: "24h"
   },
-  axiosConfig: {
-    baseURL: "https://myserver_uri_",
-    timeout: 5000
-  },
-})
+  quidUri: conf.quidUrl,
+  serverUri: "https://localhost:8000",
+  verbose: true,
+});
 
-async function get(uri) {
-    try {
-      let response = await requests.get(uri);
-      return { response: response, error: null }
-    } catch (e) {
-      if (e.hasToLogin) {
-        // the user has no refresh token: a login is required
-      }
-      return { response: null, error: e }
-    }
-  }
+async function get(uri: string): Record<string, any> {
+  let data = await requests.get<Record<string,any>(uri);
+  return data
+}
+
+async function post(uri: string, payload: Record<string, any>): Record<string, any> {
+  let data = await requests.post<Record<string,any>(uri, payload);
+  return data
+}
 ```
 
 
