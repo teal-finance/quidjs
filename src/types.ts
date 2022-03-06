@@ -5,6 +5,7 @@ interface QuidParams {
   timeouts: Record<string, string>;
   credentials?: string | null;
   verbose: boolean;
+  accessTokenUri?: string | null;
 }
 
 interface QuidLoginParams {

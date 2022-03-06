@@ -11,11 +11,15 @@ export default class QuidRequests {
   private verbose: boolean;
   private headers: HeadersInit;
   private credentials: string | null;
+  private accessTokenUri: string | null;
 
   public constructor({ quidUri, serverUri, namespace, timeouts = {
     accessToken: "20m",
     refreshToken: "24h"
-  }, credentials = "include", verbose = false }: QuidParams) {
+  },
+    credentials = "include",
+    verbose = false,
+    accessTokenUri = null }: QuidParams) {
     this.quidUri = quidUri;
     this.serverUri = serverUri;
     this.namespace = namespace;
@@ -25,18 +29,18 @@ export default class QuidRequests {
     this.headers = {
       'Content-Type': 'application/json',
     } as HeadersInit;
+    this.accessTokenUri = accessTokenUri;
     if (verbose) {
       console.log("Initializing QuidRequests", this.quidUri);
     }
-    console.log("INIT CREDS", this.credentials)
   }
 
-  async get<T>(url: string): Promise<T> {
-    return this._request<T>(url, "get");
+  async get<T = Record<string, any>>(url: string): Promise<T> {
+    return await this._request<T>(url, "get");
   }
 
-  async post<T>(url: string): Promise<T> {
-    return this._request<T>(url, "post");
+  async post<T = Record<string, any>>(url: string, payload: Record<string, any> | Array<any>): Promise<T> {
+    return await this._request<T>(url, "post", payload);
   }
 
   async login(username: string, password: string) {
@@ -68,7 +72,7 @@ export default class QuidRequests {
       }
       this.refreshToken = t.token;
     } catch (e) {
-      throw new Error(e);
+      throw new Error(`${e}`);
     }
   }
 
@@ -142,7 +146,9 @@ export default class QuidRequests {
       console.log("RESP NOT OK", response);
       throw new Error(response.statusText)
     }
-    return await response.json() as T;
+    const data = await response.json() as T;
+    //console.log("DATa", data);
+    return data
   }
 
   private async _getAccessToken(): Promise<number> {
@@ -150,7 +156,10 @@ export default class QuidRequests {
       namespace: this.namespace,
       refresh_token: this.refreshToken, // eslint-disable-line
     }
-    const url = this.quidUri + "/token/access/" + this.timeouts.accessToken;
+    let url = this.quidUri + "/token/access/" + this.timeouts.accessToken;
+    if (this.accessTokenUri !== null) {
+      url = this.accessTokenUri
+    }
     if (this.verbose) {
       console.log("Getting an access token from", url, payload)
     }
