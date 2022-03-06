@@ -31,12 +31,12 @@ const requests = new QuidRequests({
 });
 
 async function get(uri: string): Record<string, any> {
-  let data = await requests.get<Record<string,any>(uri);
+  let data = await requests.get<Record<string,any>>(uri);
   return data
 }
 
 async function post(uri: string, payload: Record<string, any>): Record<string, any> {
-  let data = await requests.post<Record<string,any>(uri, payload);
+  let data = await requests.post<Record<string,any>>(uri, payload);
   return data
 }
 ```
