@@ -19,7 +19,7 @@ npm install quidjs
 ```typescript
 import { useQuidRequests } from "quidjs";
 
-const requests = new useQuidRequests({
+const quid = useQuidRequests({
   namespace: "my_namespace",
   timeouts: {
     accessToken: "5m",
@@ -31,14 +31,19 @@ const requests = new useQuidRequests({
 });
 
 async function get(uri: string): Promise<Record<string, any>> {
-  let data = await requests.get<Record<string,any>>(uri);
+  let data = await quid.get<Record<string,any>>(uri);
   return data
 }
 
 async function post(uri: string, payload: Record<string, any>): Promise<Record<string, any>> {
-  let data = await requests.post<Record<string,any>>(uri, payload);
+  let data = await quid.post<Record<string,any>>(uri, payload);
   return data
 }
+
+// login the user
+await quid.login("user", "pwd");
+const response = await quid.get<Record<string,any>>("/api");
+console.log("Backend response:", response)
 ```
 
 ## Examples
