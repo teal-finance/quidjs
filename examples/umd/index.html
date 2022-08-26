@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UMD example</title>
+  </head>
+  <body>
+    <script src="https://unpkg.com/quidjs@0.7.0/dist/quid.min.js"></script>
+    <script>
+      var quid = $quid.useQuidRequests({
+        namespace: "testns", // the namespace to use
+        quidUri: "http://localhost:8082", // quid server url
+        serverUri: "http://localhost:5714", // url of your backend
+        verbose: true,
+      });
+      // login a user
+      quid.login("testuser", "testpwd").then(() => {
+        // then request the server
+        quid.get("/").then((response) => {
+          console.log("Backend response:", response)
+        })
+      });
+    </script>
+  </body>
+</html>

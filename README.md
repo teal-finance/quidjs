@@ -17,9 +17,9 @@ npm install quidjs
 ## Usage
 
 ```typescript
-import { QuidRequests } from "quidjs";
+import { useQuidRequests } from "quidjs";
 
-const requests = new QuidRequests({
+const requests = new useQuidRequests({
   namespace: "my_namespace",
   timeouts: {
     accessToken: "5m",
@@ -40,5 +40,10 @@ async function post(uri: string, payload: Record<string, any>): Promise<Record<s
   return data
 }
 ```
+
+## Examples
+
+- [Script src](examples/umd)
+- [Script module](examples/esm)
 
 
