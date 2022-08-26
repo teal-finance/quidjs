@@ -30,20 +30,17 @@ const quid = useQuidRequests({
   verbose: true,
 });
 
-async function get(uri: string): Promise<Record<string, any>> {
-  let data = await quid.get<Record<string,any>>(uri);
-  return data
-}
-
-async function post(uri: string, payload: Record<string, any>): Promise<Record<string, any>> {
-  let data = await quid.post<Record<string,any>>(uri, payload);
-  return data
-}
-
 // login the user
 await quid.login("user", "pwd");
-const response = await quid.get<Record<string,any>>("/api");
-console.log("Backend response:", response)
+
+// use the quid instance to request json from the backend
+// GET request
+const response: Record<string,any> = await quid.get<Record<string,any>>("/api/get");
+console.log("Backend GET response:", response)
+// POST request
+const payload = {"foo": "bar"};
+const response2: Record<string,any> = await quid.post<Record<string,any>>("/api/post", payload);
+console.log("Backend POST response:", response2)
 ```
 
 ## Examples
