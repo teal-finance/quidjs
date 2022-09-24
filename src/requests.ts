@@ -167,6 +167,10 @@ const useQuidRequests = (
     login,
     getRefreshToken,
     refreshToken,
+    quidUri,
+    serverUri,
+    namespace,
+    timeouts,
   }
 }
 

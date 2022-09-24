@@ -11,7 +11,7 @@ dotenv.config();
 const PORT = process.env.PORT || 5714;
 const app: Express = express();
 
-app.use(cors({ origin: "http://localhost:5173", credentials: true }))
+app.use(cors({ origin: "http://localhost:3000", credentials: true }))
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -36,7 +36,7 @@ function verifyjwt(req: Request, res: Response, next: NextFunction) {
       }
     });
   } catch (e) {
-    res.status(401).json('Token not valid')
+    return res.status(401).json('Token not valid')
   }
   next()
 }

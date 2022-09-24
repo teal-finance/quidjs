@@ -1,6 +1,6 @@
 const conf = {
   namespace: "testns",
-  namespaceKey: "5712b301c21f2d9733f38313f3011df00ac2bef67a0813fedc1500b7ad861d17",
+  namespaceKey: "31e3220bda43f7662aa8b09769a16b8457fc69f5217a4d7d27e40cbae7f9d046",
   userName: "testuser",
   userPwd: "testpwd"
 }
