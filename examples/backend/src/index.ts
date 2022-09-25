@@ -26,6 +26,7 @@ function verifyjwt(req: Request, res: Response, next: NextFunction) {
   }
   const token = bearer.split(" ")[1]
   console.log("Verifying token", token)
+  console.log("with hexadecimal key", conf.namespaceKey)
   try {
     jwt.verify(token, conf.namespaceKey, function (err, decoded) {
       if (err) {
