@@ -10,6 +10,7 @@ dotenv.config();
 
 const PORT = process.env.PORT || 5714;
 const app: Express = express();
+const keyBin = Buffer.from(conf.namespaceKey, 'hex');
 
 app.use(cors({ origin: "http://localhost:3000", credentials: true }))
 app.use(helmet());
@@ -28,7 +29,7 @@ function verifyjwt(req: Request, res: Response, next: NextFunction) {
   console.log("Verifying token", token)
   console.log("with hexadecimal key", conf.namespaceKey)
   try {
-    jwt.verify(token, conf.namespaceKey, function (err, decoded) {
+    jwt.verify(token, keyBin, function (err, decoded) {
       if (err) {
         console.log("Token unverified", err);
         return res.status(401).json('Wrong token')
