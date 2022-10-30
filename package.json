@@ -15,17 +15,19 @@
     "docs": "typedoc --entryPointStrategy expand"
   },
   "devDependencies": {
+    "@playwright/test": "^1.27.1",
     "@rollup/plugin-node-resolve": "^13.1.3",
     "@types/node": "^16.10.2",
     "rollup": "^2.78.1",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.33.0",
     "rollup-plugin-web-worker-loader": "^1.6.1",
+    "runplaywright": "^0.0.10",
     "tslib": "^2.3.1",
-    "typescript": "^4.6.3",
     "typedoc": "^0.23.5",
     "typedoc-plugin-markdown": "^3.13.2",
-    "typedoc-plugin-rename-defaults": "^0.6.1"
+    "typedoc-plugin-rename-defaults": "^0.6.1",
+    "typescript": "^4.6.3"
   },
   "keywords": [
     "quid",
