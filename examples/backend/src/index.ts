@@ -12,7 +12,13 @@ const PORT = process.env.PORT || 5714;
 const app: Express = express();
 const keyBin = Buffer.from(conf.namespaceKey, 'hex');
 
-app.use(cors({ origin: "http://localhost:3000", credentials: true }))
+app.use(cors({
+  origin: [
+    "http://localhost:3000",
+    "http://localhost:5173",
+    "http://localhost:5174"
+  ], credentials: true
+}))
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -20,6 +26,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(verifyjwt);
 
 function verifyjwt(req: Request, res: Response, next: NextFunction) {
+  //console.log("HEAD", req.headers)
   const bearer = req.headers['authorization']
   if (!bearer) {
     console.log("User has no token")
@@ -45,7 +52,7 @@ function verifyjwt(req: Request, res: Response, next: NextFunction) {
 
 app.get('/', (req: Request, res: Response) => {
   //console.log("Request with auth header:", req.header("authorization"));
-  res.send({ "response": "ok" })
+  res.end()
 });
 
 app.listen(PORT, () => console.log(`Running on ${PORT} ⚡`));
