@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>UMD example</title>
   </head>
+
   <body>
     <script src="https://unpkg.com/quidjs@0.7.0/dist/quid.min.js"></script>
     <script>
@@ -15,7 +17,7 @@
         verbose: true,
       });
       // login a user
-      quid.login("testuser", "testpwd").then(() => {
+      quid.login("testuser", "testuserpwd").then(() => {
         // then request the server
         quid.get("/").then((response) => {
           console.log("Backend response:", response)
@@ -23,4 +25,5 @@
       });
     </script>
   </body>
+
 </html>

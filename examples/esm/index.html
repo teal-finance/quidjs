@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ESM example</title>
   </head>
+
   <body>
     <script type="module">
       import { useQuidRequests } from "https://unpkg.com/quidjs@0.7.0/dist/quid.esm.js";
@@ -16,10 +18,11 @@
         verbose: true,
       });
       // login a user
-      await quid.login("testuser", "testpwd");
+      await quid.login("testuser", "testuserpwd");
       // then request the server
       const resp = await quid.get("/");
       console.log("Backend response:", resp)
     </script>
   </body>
+
 </html>
