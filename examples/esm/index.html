@@ -18,7 +18,7 @@
         verbose: true,
       });
       // login a user
-      await quid.login("testuser", "testuserpwd");
+      await quid.login("testuser", "testpwd");
       // then request the server
       const resp = await quid.get("/");
       console.log("Backend response:", resp)
