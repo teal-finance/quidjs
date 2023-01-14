@@ -15,7 +15,8 @@
     "strictFunctionTypes": true,
     "skipLibCheck": true,
     "types": [
-      "node"
+      "node",
+      "jest"
     ],
     "lib": [
       "es2015",
