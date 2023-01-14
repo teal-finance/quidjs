@@ -48,4 +48,13 @@ console.log("Backend POST response:", response2)
 - [Script src](examples/umd)
 - [Script module](examples/esm)
 
+## Run the tests
+
+Create a test namespace in a Quid instance and create a user. Open `tests/src/conf.ts` and
+update the namespace key and credentials. Then run the tests:
+
+```
+yarn test
+```
+
 
