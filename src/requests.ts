@@ -2,13 +2,11 @@ import { QuidError, QuidRequestError } from "./errors";
 import { QuidLoginParams, QuidParams } from "./interfaces";
 
 const useQuidRequests = (
-  { quidUri, serverUri, namespace, timeouts = {
-    accessToken: "20m",
-    refreshToken: "24h"
-  },
+  { quidUri,
+    serverUri,
+    namespace,
     credentials = "include",
-    verbose = false,
-    accessTokenUri = null }: QuidParams) => {
+    verbose = false }: QuidParams) => {
   let refreshToken: string | null = null;
   let accessToken: string | null = null;
   let headers: HeadersInit;
@@ -26,8 +24,8 @@ const useQuidRequests = (
     await _checkTokens();
   }
 
-  const getRefreshToken = async function ({ username, password, refreshTokenTtl = "24h" }: QuidLoginParams) {
-    const uri = quidUri + "/token/refresh/" + refreshTokenTtl;
+  const getRefreshToken = async function ({ username, password }: QuidLoginParams) {
+    const uri = quidUri + "/token/refresh";
     const payload = {
       namespace: namespace,
       username: username,
@@ -137,10 +135,7 @@ const useQuidRequests = (
       namespace: namespace,
       refresh_token: refreshToken,
     }
-    let url = quidUri + "/token/access/" + timeouts.accessToken;
-    if (accessTokenUri !== null) {
-      url = accessTokenUri
-    }
+    let url = quidUri + "/token/access";
     if (verbose) {
       console.log("Getting an access token from", url, payload)
     }
@@ -162,15 +157,14 @@ const useQuidRequests = (
   }
 
   return {
+    get refreshToken() { return refreshToken },
     get,
     post,
     login,
     getRefreshToken,
-    refreshToken,
     quidUri,
     serverUri,
     namespace,
-    timeouts,
   }
 }
 

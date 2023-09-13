@@ -11,7 +11,7 @@ var morgan = require('morgan')
 
 dotenv.config();
 
-const PORT = process.env.PORT || 5714;
+const PORT = process.env.PORT || 5173;
 const app: Express = express();
 
 app.use(cors({ origin: ["http://localhost:3000"], credentials: true }))

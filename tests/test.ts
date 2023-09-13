@@ -13,17 +13,18 @@ afterEach(() => {
 
 const quid = useQuidRequests({
   namespace: "testns", // the namespace to use
-  quidUri: "http://localhost:8090", // quid server url
-  serverUri: "http://localhost:5714", // url of your backend
+  quidUri: "http://localhost:8000/api/quid", // quid server url
+  serverUri: "http://localhost:5173", // url of your backend
   verbose: true,
 } as QuidParams);
 
 
-describe('login and request', () => {
+describe('login and post', () => {
   it('200', async () => {
     await quid.login(conf.userName, conf.userPwd);
+    console.log("Token:", quid.refreshToken)
     const res = await quid.get<Record<string, any>>("/");
-    console.log("RES", res)
-    //expect(res.data).toEqual({ response: "ok" })
+    //console.log("RES", res)
+    expect(res).toEqual({ response: "ok" })
   });
 });
