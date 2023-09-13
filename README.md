@@ -21,10 +21,6 @@ import { useQuidRequests } from "quidjs";
 
 const quid = useQuidRequests({
   namespace: "my_namespace",
-  timeouts: {
-    accessToken: "5m",
-    refreshToken: "24h"
-  },
   quidUri: "https://localhost:8082", // quid server url
   serverUri: "https://localhost:8000", // url of your backend
   verbose: true,
