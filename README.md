@@ -1,12 +1,18 @@
-# Quidjs
+# QuidJS
 
 [![pub package](https://img.shields.io/npm/v/quidjs)](https://www.npmjs.com/package/quidjs)
 
-A requests library for the [Quid](https://github.com/synw/quid) json web tokens server
+A requests library for the [Quid](https://github.com/teal-finance/quid) json web tokens server
 
-This library transparently manage the requests to api servers. If a server returns a 401 Unauthorized response
-when an access token is expired the client library will request a new access token from a Quid server, using a refresh
-token, and will retry the request with the new access token
+This library transparently manages the JWT authentication
+when accessing an API servers:
+If the API server returns a *401 Unauthorized* response
+when an *Access Token* is expired,
+then this QuidJS client library requests a new *Access Token*
+from a Quid server using a *Refresh Token*,
+and sends again the failed request with the new *Access Token*.
+
+## Add QuidJS as a dependency
 
 ```bash
 yarn add quidjs
@@ -21,15 +27,15 @@ import { useQuidRequests } from "quidjs";
 
 const quid = useQuidRequests({
   namespace: "my_namespace",
-  quidUri: "https://localhost:8082", // quid server url
-  serverUri: "https://localhost:8000", // url of your backend
+  quidUri: "https://localhost:8082",   // URL of your Quid server
+  serverUri: "https://localhost:8000", // URL of your API backend
   verbose: true,
 });
 
 // login the user
 await quid.login("user", "pwd");
 
-// use the quid instance to request json from the backend
+// use the quid instance to request your API backend
 // GET request
 const response: Record<string,any> = await quid.get<Record<string,any>>("/api/get");
 console.log("Backend GET response:", response)
