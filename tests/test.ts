@@ -13,7 +13,7 @@ afterEach(() => {
 
 const quid = useQuidRequests({
   namespace: "testns", // the namespace to use
-  quidUri: "http://localhost:8000/api/quid", // quid server url
+  quidUri: "http://localhost:8090/api/quid", // quid server url
   serverUri: "http://localhost:5173", // url of your backend
   verbose: true,
 } as QuidParams);
